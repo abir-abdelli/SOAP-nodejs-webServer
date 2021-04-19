@@ -3,12 +3,12 @@ services:
   nodejs:
     build: 
       context: .
-    image: newapp
+    image: node-app
     networks:
       - frontend
       - backend
     environment:
-      - MYSQL_HOST=app-mysql
+      - MYSQL_HOST=mysql
       - MYSQL_USER=myuser
       - MYSQL_PASS=mypass
       - MYSQL_DB=bank_db
@@ -16,9 +16,9 @@ services:
       - ./www/:/var/www/html/
     ports:
       - "8000:8000"
-    container_name: newapp
+    container_name: node-app
   mysql:
-    image: mysql:5.7
+    image: mysql:5.6
     networks:
       - backend
     environment:
@@ -26,7 +26,7 @@ services:
       - MYSQL_USER=myuser
       - MYSQL_PASSWORD=mypass
       - MYSQL_DATABASE=bank_db
-    container_name: app-mysql
+    container_name: mysql
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     depends_on:
@@ -36,11 +36,11 @@ services:
     ports:
       - "30008:80"
     environment:
-      - PMA_HOST=app-mysql
+      - PMA_HOST=mysql
       - PMA_PORT= 3306
     volumes:
       - /sessions
-    container_name: app-phpmyadmin
+    container_name: phpmyadmin
 networks:
   frontend:
   backend:
