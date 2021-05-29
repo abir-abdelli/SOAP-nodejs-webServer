@@ -31,5 +31,4 @@ app.listen(port, function () {
   var wsdl_path = "/wsdl";
   soap.listen(app, wsdl_path, service, xml);
   console.log("Check http://localhost:" + port + wsdl_path + "?wsdl to see if the service is working");
-
 });
